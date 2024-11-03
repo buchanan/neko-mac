@@ -14,17 +14,22 @@
 
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSWindowStyleMask)styleMask backing:(NSBackingStoreType)bufferingType defer:(BOOL)deferCreation
 {
-	self = [super initWithContentRect:contentRect styleMask:NSBorderlessWindowMask backing:bufferingType defer:deferCreation];
-	[self setBecomesKeyOnlyIfNeeded:YES];
+	self = [super initWithContentRect:contentRect
+							styleMask:styleMask
+							  backing:bufferingType
+								defer:deferCreation];
 	[self setLevel:NSStatusWindowLevel];
+	self.collectionBehavior = NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary;
 	[self setOpaque:NO];
 	[self setCanHide:NO];
 	[self setIgnoresMouseEvents:YES];
 	[self setMovableByWindowBackground:NO];
-	[self setFrame:NSMakeRect(0.0f, 0.0f, 32.0f, 32.0f) display:0];
 	[self center];
 	[self setBackgroundColor:[NSColor clearColor]];
 	[self useOptimizedDrawing:YES];
+	self.view = [[MyView alloc] init];
+	self.contentView = self.view;
+	[self orderFront:nil];
 	NSBundle *bundle = [NSBundle mainBundle];
 	
 	stop = [NSArray arrayWithObjects:
@@ -205,9 +210,9 @@
 	BOOL isNekoMoveStart = [self isNekoMoveStart];
 	
     if(nekoState != sleep) {
-		[view setImageTo:(NSImage*)[nekoState objectAtIndex:tickCount % [nekoState count]]];
+		[self.view setImageTo:(NSImage*)[nekoState objectAtIndex:tickCount % [nekoState count]]];
     } else {
-		[view setImageTo:(NSImage*)[nekoState objectAtIndex:(tickCount>>2) % [nekoState count]]];
+		[self.view setImageTo:(NSImage*)[nekoState objectAtIndex:(tickCount>>2) % [nekoState count]]];
     }
 	
 	[self advanceClock];
@@ -287,7 +292,7 @@
 	}
 
 	breakout:
-	[view displayIfNeeded];
+	[self.view displayIfNeeded];
 	[self setFrameOrigin:NSMakePoint(x, y)];
 }
 @end

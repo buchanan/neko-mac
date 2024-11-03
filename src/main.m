@@ -7,8 +7,25 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "MyPanel.h"
+
+@interface AppDelegate : NSObject <NSApplicationDelegate>
+@property (nonatomic, strong) NSWindow *window;
+@end
+
+@implementation AppDelegate
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    self.window = [[MyPanel alloc] initWithContentRect:NSMakeRect(0, 0, 32, 32)
+                                                 styleMask:NSWindowStyleMaskBorderless
+                                                   backing:NSBackingStoreBuffered
+                                                     defer:NO];
+}
+@end
 
 int main(int argc, char *argv[])
 {
-	return NSApplicationMain(argc,  (const char **) argv);
+    AppDelegate *appDelegate = [[AppDelegate alloc] init];
+    [[NSApplication sharedApplication] setDelegate:appDelegate];
+    [NSApp run];
+    return 0;
 }
