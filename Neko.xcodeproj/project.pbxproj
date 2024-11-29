@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5B5D87692CF3040800D053D4 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D87682CF3040800D053D4 /* Main.swift */; };
-		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A700278D0CA641680057F7E4 /* MyPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = A700278C0CA641680057F7E4 /* MyPanel.m */; };
 		A70027B30CA6447E0057F7E4 /* MyView.m in Sources */ = {isa = PBXBuildFile; fileRef = A70027B20CA6447E0057F7E4 /* MyView.m */; };
@@ -51,10 +50,8 @@
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
-		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		32CA4F630368D1EE00C91783 /* 猫_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "猫_Prefix.pch"; sourceTree = "<group>"; };
 		5B1AF34F2CF9F5BD0053019F /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		5B1AF3772CF9F8E70053019F /* Signing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Signing.xcconfig; sourceTree = "<group>"; };
 		5B5D87672CF3040800D053D4 /* Neko-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Neko-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -170,8 +167,6 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				32CA4F630368D1EE00C91783 /* 猫_Prefix.pch */,
-				29B97316FDCFA39411CA2CEA /* main.m */,
 				5B5D87682CF3040800D053D4 /* Main.swift */,
 				5B5D87672CF3040800D053D4 /* Neko-Bridging-Header.h */,
 			);
@@ -259,6 +254,7 @@
 				LastUpgradeCheck = 0920;
 				TargetAttributes = {
 					8D1107260486CEB800E47090 = {
+						DevelopmentTeam = 63SZC8AAZ5;
 						LastSwiftMigration = 1610;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -333,7 +329,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				A700278D0CA641680057F7E4 /* MyPanel.m in Sources */,
 				5B5D87692CF3040800D053D4 /* Main.swift in Sources */,
 				A70027B30CA6447E0057F7E4 /* MyView.m in Sources */,

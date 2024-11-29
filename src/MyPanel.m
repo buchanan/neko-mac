@@ -1,5 +1,24 @@
 #import "MyPanel.h"
 
+NSString * const kTransparencyRadius = @"transparencyRadius";
+NSString * const kCenterTransparency = @"centerTransparency";
+
+@implementation CatSettings
++(instancetype)loadSettings {
+	CatSettings *res = [CatSettings new];
+	res.transparencyRadius = (int) [NSUserDefaults.standardUserDefaults integerForKey:kTransparencyRadius];
+	res.centerTransparency = (int) [NSUserDefaults.standardUserDefaults integerForKey:kCenterTransparency];
+	return res;
+}
+
+-(void) save {
+	[NSUserDefaults.standardUserDefaults setInteger:self.transparencyRadius
+											 forKey:kTransparencyRadius];
+	[NSUserDefaults.standardUserDefaults setInteger:self.centerTransparency
+											 forKey:kCenterTransparency];
+}
+@end
+
 @implementation MyPanel
 - (void)setStateTo:(id)theState
 {
@@ -9,7 +28,6 @@
 	tickCount = 0;
 	stateCount = 0;
 	nekoState = theState;
-	[self flushWindow];
 }
 
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSWindowStyleMask)styleMask backing:(NSBackingStoreType)bufferingType defer:(BOOL)deferCreation
@@ -26,7 +44,6 @@
 	[self setMovableByWindowBackground:NO];
 	[self center];
 	[self setBackgroundColor:[NSColor clearColor]];
-	[self useOptimizedDrawing:YES];
 	self.view = [[MyView alloc] init];
 	self.contentView = self.view;
 	[self orderFront:nil];
@@ -101,6 +118,9 @@
 		[[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"rtogi1" ofType:@"gif"]],
 		[[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"rtogi2" ofType:@"gif"]], nil];
 	[r_togi retain];
+	self.settings = [CatSettings loadSettings];
+	self.settings.centerTransparency = 80;
+	self.settings.transparencyRadius = 200;
 	
 	[self setStateTo:stop];
 	
@@ -122,6 +142,7 @@
 	DeltaY = floor(MouseY - y);
 	
 	Length = hypotf(DeltaX, DeltaY);
+	self.mouseDistance = Length;
 	
 	if (Length != 0.0f) {
 		if (Length <= 13.0f) {
@@ -294,5 +315,14 @@
 	breakout:
 	[self.view displayIfNeeded];
 	[self setFrameOrigin:NSMakePoint(x, y)];
+	
+	// Update opacity of 🐱
+	if (self.settings.transparencyRadius < self.mouseDistance) {
+		self.view.opacity = 1.0;
+	} else {
+		float rate = self.mouseDistance / self.settings.transparencyRadius;
+		float centerTransparency = self.settings.centerTransparency / 100.0;
+		self.view.opacity = 1 - centerTransparency + rate * centerTransparency;
+	}
 }
 @end
