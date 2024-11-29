@@ -1,5 +1,24 @@
 #import "MyPanel.h"
 
+NSString * const kTransparencyRadius = @"transparencyRadius";
+NSString * const kCenterTransparency = @"centerTransparency";
+
+@implementation CatSettings
++(instancetype)loadSettings {
+	CatSettings *res = [CatSettings new];
+	res.transparencyRadius = (int) [NSUserDefaults.standardUserDefaults integerForKey:kTransparencyRadius];
+	res.centerTransparency = (int) [NSUserDefaults.standardUserDefaults integerForKey:kCenterTransparency];
+	return res;
+}
+
+-(void) save {
+	[NSUserDefaults.standardUserDefaults setInteger:self.transparencyRadius
+											 forKey:kTransparencyRadius];
+	[NSUserDefaults.standardUserDefaults setInteger:self.centerTransparency
+											 forKey:kCenterTransparency];
+}
+@end
+
 @implementation MyPanel
 - (void)setStateTo:(id)theState
 {
@@ -9,22 +28,25 @@
 	tickCount = 0;
 	stateCount = 0;
 	nekoState = theState;
-	[self flushWindow];
 }
 
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSWindowStyleMask)styleMask backing:(NSBackingStoreType)bufferingType defer:(BOOL)deferCreation
 {
-	self = [super initWithContentRect:contentRect styleMask:NSBorderlessWindowMask backing:bufferingType defer:deferCreation];
-	[self setBecomesKeyOnlyIfNeeded:YES];
+	self = [super initWithContentRect:contentRect
+							styleMask:styleMask
+							  backing:bufferingType
+								defer:deferCreation];
 	[self setLevel:NSStatusWindowLevel];
+	self.collectionBehavior = NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary;
 	[self setOpaque:NO];
 	[self setCanHide:NO];
 	[self setIgnoresMouseEvents:YES];
 	[self setMovableByWindowBackground:NO];
-	[self setFrame:NSMakeRect(0.0f, 0.0f, 32.0f, 32.0f) display:0];
 	[self center];
 	[self setBackgroundColor:[NSColor clearColor]];
-	[self useOptimizedDrawing:YES];
+	self.view = [[MyView alloc] init];
+	self.contentView = self.view;
+	[self orderFront:nil];
 	NSBundle *bundle = [NSBundle mainBundle];
 	
 	stop = [NSArray arrayWithObjects:
@@ -96,6 +118,9 @@
 		[[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"rtogi1" ofType:@"gif"]],
 		[[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"rtogi2" ofType:@"gif"]], nil];
 	[r_togi retain];
+	self.settings = [CatSettings loadSettings];
+	self.settings.centerTransparency = 80;
+	self.settings.transparencyRadius = 200;
 	
 	[self setStateTo:stop];
 	
@@ -117,6 +142,7 @@
 	DeltaY = floor(MouseY - y);
 	
 	Length = hypotf(DeltaX, DeltaY);
+	self.mouseDistance = Length;
 	
 	if (Length != 0.0f) {
 		if (Length <= 13.0f) {
@@ -205,9 +231,9 @@
 	BOOL isNekoMoveStart = [self isNekoMoveStart];
 	
     if(nekoState != sleep) {
-		[view setImageTo:(NSImage*)[nekoState objectAtIndex:tickCount % [nekoState count]]];
+		[self.view setImageTo:(NSImage*)[nekoState objectAtIndex:tickCount % [nekoState count]]];
     } else {
-		[view setImageTo:(NSImage*)[nekoState objectAtIndex:(tickCount>>2) % [nekoState count]]];
+		[self.view setImageTo:(NSImage*)[nekoState objectAtIndex:(tickCount>>2) % [nekoState count]]];
     }
 	
 	[self advanceClock];
@@ -287,7 +313,16 @@
 	}
 
 	breakout:
-	[view displayIfNeeded];
+	[self.view displayIfNeeded];
 	[self setFrameOrigin:NSMakePoint(x, y)];
+	
+	// Update opacity of 🐱
+	if (self.settings.transparencyRadius < self.mouseDistance) {
+		self.view.opacity = 1.0;
+	} else {
+		float rate = self.mouseDistance / self.settings.transparencyRadius;
+		float centerTransparency = self.settings.centerTransparency / 100.0;
+		self.view.opacity = 1 - centerTransparency + rate * centerTransparency;
+	}
 }
 @end

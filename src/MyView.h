@@ -9,5 +9,6 @@
 
 - (NSImage*)image;
 - (void)setImageTo:(NSImage*)theImage;
+@property (nonatomic) float opacity;
 
 @end

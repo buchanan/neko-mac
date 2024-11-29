@@ -1,0 +1,13 @@
+//
+//  Config.xcconfig
+//  Neko
+//
+//  Created by MeowCat on 2024/11/29.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+#include "Signing.xcconfig"
+// Create `Signing.xcconfig` and add your team like:
+// DEVELOPMENT_TEAM[sdk=macosx*] = SOME_VALUE
