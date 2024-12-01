@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger, NekoStateKind) {
 -(instancetype)initWithImages:(NSArray<NSImage *> *)images
                          kind:(NekoStateKind)kind;
 #define H(Name, _, __) \
-+(NekoState *)Name;
+@property (class, readonly, assign) NekoState *Name;
 #include "CatStates.def"
 #undef H
 @end

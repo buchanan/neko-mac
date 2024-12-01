@@ -48,14 +48,10 @@ NSString * const kCenterTransparency = @"centerTransparency";
 	self.view = [[MyView alloc] init];
 	self.contentView = self.view;
 	[self orderFront:nil];
-	NSBundle *bundle = [NSBundle mainBundle];
-	
 	self.settings = [CatSettings loadSettings];
 	self.settings.centerTransparency = 80;
 	self.settings.transparencyRadius = 200;
-	
-	[self setStateTo: [NekoState stop]];
-	
+	[self setStateTo: NekoState.stop];
 	[NSTimer scheduledTimerWithTimeInterval:0.125f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
 	return self;
 }
@@ -115,38 +111,25 @@ NSString * const kCenterTransparency = @"centerTransparency";
     double		SinTheta;
 	
     if (moveDx == 0.0f && moveDy == 0.0f) {
-		  newNekoState = [NekoState stop];
+		newNekoState = NekoState.stop;
     } else {
 		LargeX = (double)moveDx;
 		LargeY = (double)moveDy;
 		Length = sqrt(LargeX * LargeX + LargeY * LargeY);
 		SinTheta = LargeY / Length;
-		//printf("SinTheta = %f\n", SinTheta);
-		
-		if (moveDx > 0) {
-			if (SinTheta > 0.9239) {
-				newNekoState = [NekoState up];
-			} else if (SinTheta > 0.3827) {
-				newNekoState = [NekoState upright];
-			} else if (SinTheta > -0.3827) {
-				newNekoState = [NekoState right];
-			} else if (SinTheta > -0.9239) {
-				newNekoState = [NekoState dwright];
-			} else {
-				newNekoState = [NekoState down];
-			}
+		if (SinTheta > 0.9239) {
+			newNekoState = NekoState.up;
+		} else if (SinTheta > 0.3827) {
+			newNekoState = moveDx > 0 ?
+				NekoState.upright : NekoState.upleft;
+		} else if (SinTheta > -0.3827) {
+			newNekoState = moveDx > 0 ?
+				NekoState.right : NekoState.left;
+		} else if (SinTheta > -0.9239) {
+			newNekoState = moveDx > 0 ?
+				NekoState.dwright : NekoState.dwleft;
 		} else {
-			if (SinTheta > 0.9239) {
-				newNekoState = [NekoState up];
-			} else if (SinTheta > 0.3827) {
-				newNekoState = [NekoState upleft];
-			} else if (SinTheta > -0.3827) {
-				newNekoState = [NekoState left];
-			} else if (SinTheta > -0.9239) {
-				newNekoState = [NekoState dwleft];
-			} else {
-				newNekoState = [NekoState down];
-			}
+			newNekoState = NekoState.down;
 		}
     }
 	
@@ -157,22 +140,18 @@ NSString * const kCenterTransparency = @"centerTransparency";
 {
 	float x = [self frame].origin.x;
 	float y = [self frame].origin.y;
-	//printf("paint %d %d\n", time(NULL), tickCount % [nekoState count]);
-	
 	[self calcDxDyForX:x Y:y];
 	BOOL isNekoMoveStart = [self isNekoMoveStart];
-	
-	if (self.nekoState != [NekoState sleep]) {
+	if (self.nekoState != NekoState.sleep) {
 		[self.view setImageTo:(NSImage*)[self.nekoState.images objectAtIndex:tickCount % [self.nekoState.images count]]];
 	} else {
 		[self.view setImageTo:(NSImage*)[self.nekoState.images objectAtIndex:(tickCount>>2) % [self.nekoState.images count]]];
 	}
-	
 	[self advanceClock];
 	
-    if (self.nekoState == [NekoState stop]) {
+    if (self.nekoState == NekoState.stop) {
 		if (isNekoMoveStart) {
-			[self setStateTo:[NekoState awake]];
+			[self setStateTo:NekoState.awake];
 			goto breakout;
 		}
 		if (stateCount < 4) {
@@ -187,41 +166,41 @@ NSString * const kCenterTransparency = @"centerTransparency";
 		} else if (moveDy > 0 && y >= WindowHeight - 32) {
 			[self setStateTo:d_togi];
 		} else {*/
-		[self setStateTo:[NekoState mati]];
+		[self setStateTo:NekoState.mati];
 		//}
-	} else if (self.nekoState == [NekoState mati]) {
+	} else if (self.nekoState == NekoState.mati) {
 		if (isNekoMoveStart) {
-			[self setStateTo:[NekoState awake]];
+			[self setStateTo:NekoState.awake];
 			goto breakout;
 		}
 		if (stateCount < 10) {
 			goto breakout;
 		}
-		[self setStateTo:[NekoState kaki]];
-	} else if (self.nekoState == [NekoState kaki]) {
+		[self setStateTo:NekoState.kaki];
+	} else if (self.nekoState == NekoState.kaki) {
 		if (isNekoMoveStart) {
-			[self setStateTo:[NekoState awake]];
+			[self setStateTo:NekoState.awake];
 			goto breakout;
 		}
 		if (stateCount < 4) {
 			goto breakout;
 		}
-		[self setStateTo:[NekoState akubi]];
-	} else if (self.nekoState == [NekoState akubi]) {
+		[self setStateTo:NekoState.akubi];
+	} else if (self.nekoState == NekoState.akubi) {
 		if (isNekoMoveStart) {
-			[self setStateTo:[NekoState awake]];
+			[self setStateTo:NekoState.awake];
 			goto breakout;
 		}
 		if (stateCount < 6) {
 			goto breakout;
 		}
-		[self setStateTo:[NekoState sleep]];
-	} else if (self.nekoState == [NekoState sleep]) {
+		[self setStateTo:NekoState.sleep];
+	} else if (self.nekoState == NekoState.sleep) {
 		if (isNekoMoveStart) {
-			[self setStateTo:[NekoState awake]];
+			[self setStateTo:NekoState.awake];
 			goto breakout;
 		}
-	} else if (self.nekoState == [NekoState awake]) {
+	} else if (self.nekoState == NekoState.awake) {
 		if (stateCount < 3) {
 			goto breakout;
 		}
@@ -232,16 +211,16 @@ NSString * const kCenterTransparency = @"centerTransparency";
 		[self NekoDirection];
 	} else if (self.nekoState.kind == NekoStateKindTogi) {
 		if (isNekoMoveStart) {
-			[self setStateTo:[NekoState awake]];
+			[self setStateTo:NekoState.awake];
 			goto breakout;
 		}
 		if (stateCount < 10) {
 			goto breakout;
 		}
-		[self setStateTo:[NekoState kaki]];
+		[self setStateTo:NekoState.kaki];
 	} else {
 		/* Internal Error */
-		[self setStateTo:[NekoState stop]];
+		[self setStateTo:NekoState.stop];
 	}
 
 	breakout:
