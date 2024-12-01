@@ -1,0 +1,29 @@
+//
+//  CatStates.def
+//  Neko
+//
+//  Created by MeowCat on 2024/12/1.
+//
+
+#ifndef H
+#error "Handler `H` undefined!"
+#endif
+
+H(upleft, 2, 1)
+H(up, 2, 1)
+H(kaki, 2, 0)
+H(utogi, 2, 2)
+H(mati, 2, 0)
+H(right, 2, 1)
+H(rtogi, 2, 2)
+H(dwright, 2, 1)
+H(upright, 2, 1)
+H(ltogi, 2, 2)
+H(awake, 1, 0)
+H(stop, 1, 0)
+H(akubi, 1, 0)
+H(down, 2, 1)
+H(sleep, 2, 0)
+H(left, 2, 1)
+H(dtogi, 2, 2)
+H(dwleft, 2, 1)
