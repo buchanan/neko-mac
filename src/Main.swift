@@ -28,12 +28,12 @@ struct Application {
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private var settingsWindow: NSWindow?
     
-    private var floatingWindow: MyPanel!
+    private var floatingWindow: FloatPanel!
     
     private var running = false
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        floatingWindow = MyPanel(
+        floatingWindow = FloatPanel(
             contentRect: NSRect(x: 0, y: 0, width: 32, height: 32),
             styleMask: .borderless,
             backing: .buffered,

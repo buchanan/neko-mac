@@ -11,9 +11,13 @@
 		5B9BE4322D2A3ABD00575EAB /* EnterableSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9BE4312D2A3ABD00575EAB /* EnterableSlider.swift */; };
 		5B9BE4342D2A3AF200575EAB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9BE4332D2A3AF200575EAB /* SettingsView.swift */; };
 		5B9BE4362D2A3CE600575EAB /* Binding+Conversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9BE4352D2A3CE600575EAB /* Binding+Conversions.swift */; };
+		5BF9F56F2D33B25500A3F8C0 /* CatAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF9F56E2D33B25500A3F8C0 /* CatAnimator.m */; };
+		5BF9F5732D33B29100A3F8C0 /* CatSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF9F5722D33B29100A3F8C0 /* CatSettings.m */; };
+		5BF9F5762D33B2DB00A3F8C0 /* CatState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF9F5752D33B2DB00A3F8C0 /* CatState.m */; };
+		5BF9F5792D33B3BF00A3F8C0 /* CatFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF9F5782D33B3BF00A3F8C0 /* CatFrame.m */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		A700278D0CA641680057F7E4 /* MyPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = A700278C0CA641680057F7E4 /* MyPanel.m */; };
-		A70027B30CA6447E0057F7E4 /* MyView.m in Sources */ = {isa = PBXBuildFile; fileRef = A70027B20CA6447E0057F7E4 /* MyView.m */; };
+		A700278D0CA641680057F7E4 /* FloatPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = A700278C0CA641680057F7E4 /* FloatPanel.m */; };
+		A70027B30CA6447E0057F7E4 /* CatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A70027B20CA6447E0057F7E4 /* CatView.m */; };
 		A700284E0CA6CB7B0057F7E4 /* awake1.gif in Resources */ = {isa = PBXBuildFile; fileRef = A700282E0CA6CB7B0057F7E4 /* awake1.gif */; };
 		A700284F0CA6CB7B0057F7E4 /* down1.gif in Resources */ = {isa = PBXBuildFile; fileRef = A700282F0CA6CB7B0057F7E4 /* down1.gif */; };
 		A70028500CA6CB7B0057F7E4 /* dtogi1.gif in Resources */ = {isa = PBXBuildFile; fileRef = A70028300CA6CB7B0057F7E4 /* dtogi1.gif */; };
@@ -63,11 +67,19 @@
 		5B9BE4332D2A3AF200575EAB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5B9BE4352D2A3CE600575EAB /* Binding+Conversions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Conversions.swift"; sourceTree = "<group>"; };
 		5BDB73F62CFC4620004512C8 /* CatStates.def */ = {isa = PBXFileReference; lastKnownFileType = text; path = CatStates.def; sourceTree = "<group>"; };
+		5BF9F56D2D33B25500A3F8C0 /* CatAnimator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CatAnimator.h; sourceTree = "<group>"; };
+		5BF9F56E2D33B25500A3F8C0 /* CatAnimator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CatAnimator.m; sourceTree = "<group>"; };
+		5BF9F5712D33B29100A3F8C0 /* CatSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CatSettings.h; sourceTree = "<group>"; };
+		5BF9F5722D33B29100A3F8C0 /* CatSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CatSettings.m; sourceTree = "<group>"; };
+		5BF9F5742D33B2DB00A3F8C0 /* CatState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CatState.h; sourceTree = "<group>"; };
+		5BF9F5752D33B2DB00A3F8C0 /* CatState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CatState.m; sourceTree = "<group>"; };
+		5BF9F5772D33B3BF00A3F8C0 /* CatFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CatFrame.h; sourceTree = "<group>"; };
+		5BF9F5782D33B3BF00A3F8C0 /* CatFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CatFrame.m; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Neko.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Neko.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A700278B0CA641680057F7E4 /* MyPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPanel.h; sourceTree = "<group>"; };
-		A700278C0CA641680057F7E4 /* MyPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPanel.m; sourceTree = "<group>"; usesTabs = 1; };
-		A70027B10CA6447E0057F7E4 /* MyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyView.h; sourceTree = "<group>"; };
-		A70027B20CA6447E0057F7E4 /* MyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyView.m; sourceTree = "<group>"; };
+		A700278B0CA641680057F7E4 /* FloatPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloatPanel.h; sourceTree = "<group>"; };
+		A700278C0CA641680057F7E4 /* FloatPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloatPanel.m; sourceTree = "<group>"; usesTabs = 1; };
+		A70027B10CA6447E0057F7E4 /* CatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatView.h; sourceTree = "<group>"; };
+		A70027B20CA6447E0057F7E4 /* CatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatView.m; sourceTree = "<group>"; };
 		A700282E0CA6CB7B0057F7E4 /* awake1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = awake1.gif; sourceTree = "<group>"; };
 		A700282F0CA6CB7B0057F7E4 /* down1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = down1.gif; sourceTree = "<group>"; };
 		A70028300CA6CB7B0057F7E4 /* dtogi1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dtogi1.gif; sourceTree = "<group>"; };
@@ -120,14 +132,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				A700278B0CA641680057F7E4 /* MyPanel.h */,
-				A700278C0CA641680057F7E4 /* MyPanel.m */,
-				A70027B10CA6447E0057F7E4 /* MyView.h */,
-				A70027B20CA6447E0057F7E4 /* MyView.m */,
-				5BDB73F62CFC4620004512C8 /* CatStates.def */,
-				5B9BE4312D2A3ABD00575EAB /* EnterableSlider.swift */,
-				5B9BE4352D2A3CE600575EAB /* Binding+Conversions.swift */,
-				5B9BE4332D2A3AF200575EAB /* SettingsView.swift */,
+				5BF9F57A2D33B75600A3F8C0 /* View */,
+				5BF9F5702D33B27C00A3F8C0 /* Settings */,
+				5BF9F56C2D33B23600A3F8C0 /* Animator */,
 			);
 			name = Classes;
 			path = src;
@@ -233,6 +240,51 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5BF9F56C2D33B23600A3F8C0 /* Animator */ = {
+			isa = PBXGroup;
+			children = (
+				5BDB73F62CFC4620004512C8 /* CatStates.def */,
+				5BF9F56D2D33B25500A3F8C0 /* CatAnimator.h */,
+				5BF9F56E2D33B25500A3F8C0 /* CatAnimator.m */,
+				5BF9F5742D33B2DB00A3F8C0 /* CatState.h */,
+				5BF9F5752D33B2DB00A3F8C0 /* CatState.m */,
+				5BF9F5772D33B3BF00A3F8C0 /* CatFrame.h */,
+				5BF9F5782D33B3BF00A3F8C0 /* CatFrame.m */,
+			);
+			path = Animator;
+			sourceTree = "<group>";
+		};
+		5BF9F5702D33B27C00A3F8C0 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				5BF9F5712D33B29100A3F8C0 /* CatSettings.h */,
+				5BF9F5722D33B29100A3F8C0 /* CatSettings.m */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		5BF9F57A2D33B75600A3F8C0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A700278B0CA641680057F7E4 /* FloatPanel.h */,
+				A700278C0CA641680057F7E4 /* FloatPanel.m */,
+				A70027B10CA6447E0057F7E4 /* CatView.h */,
+				A70027B20CA6447E0057F7E4 /* CatView.m */,
+				5BF9F57B2D33B75E00A3F8C0 /* Commons */,
+				5B9BE4332D2A3AF200575EAB /* SettingsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5BF9F57B2D33B75E00A3F8C0 /* Commons */ = {
+			isa = PBXGroup;
+			children = (
+				5B9BE4312D2A3ABD00575EAB /* EnterableSlider.swift */,
+				5B9BE4352D2A3CE600575EAB /* Binding+Conversions.swift */,
+			);
+			path = Commons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,10 +393,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B9BE4342D2A3AF200575EAB /* SettingsView.swift in Sources */,
-				A700278D0CA641680057F7E4 /* MyPanel.m in Sources */,
+				5BF9F5762D33B2DB00A3F8C0 /* CatState.m in Sources */,
+				5BF9F5792D33B3BF00A3F8C0 /* CatFrame.m in Sources */,
+				5BF9F5732D33B29100A3F8C0 /* CatSettings.m in Sources */,
+				A700278D0CA641680057F7E4 /* FloatPanel.m in Sources */,
 				5B9BE4322D2A3ABD00575EAB /* EnterableSlider.swift in Sources */,
 				5B5D87692CF3040800D053D4 /* Main.swift in Sources */,
-				A70027B30CA6447E0057F7E4 /* MyView.m in Sources */,
+				A70027B30CA6447E0057F7E4 /* CatView.m in Sources */,
+				5BF9F56F2D33B25500A3F8C0 /* CatAnimator.m in Sources */,
 				5B9BE4362D2A3CE600575EAB /* Binding+Conversions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

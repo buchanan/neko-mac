@@ -1,5 +1,11 @@
-#import "MyView.h"
-#import <objc/runtime.h>
+//
+//  CatState.m
+//  Neko
+//
+//  Created by MeowCat on 2025/1/12.
+//
+
+#import "CatState.h"
 
 // God curses those who speak all-upper-cased words,
 // those who make things terrible again.
@@ -8,9 +14,9 @@ static NSDictionary<NSString *, NSString *> *kCatStateReuseMap = @{
     @"stop1": @"mati2"
 };
 
-@implementation NekoState
+@implementation CatState
 -(instancetype)initWithImages:(NSArray<NSImage *> *)images
-                         kind:(NekoStateKind)kind
+                         kind:(CatStateKind)kind
 {
     if (self = [super init]) {
         _images = [images retain];
@@ -19,9 +25,9 @@ static NSDictionary<NSString *, NSString *> *kCatStateReuseMap = @{
     return self;
 }
 #define H(Name, Length, Kind) \
-+(NekoState *)Name \
++(CatState *)Name \
 { \
-    static NekoState *result = nil; \
+    static CatState *result = nil; \
     if (result == nil) { \
         NSBundle *bundle = [NSBundle mainBundle]; \
         NSMutableArray<NSImage *> *images = [NSMutableArray new]; \
@@ -36,45 +42,11 @@ static NSDictionary<NSString *, NSString *> *kCatStateReuseMap = @{
                 ] \
             ]]; \
         } \
-        result = [[NekoState alloc] initWithImages: images \
+        result = [[CatState alloc] initWithImages: images \
                                               kind: Kind];\
     } \
     return result; \
 }
 #include "CatStates.def"
 #undef H
-@end
-
-@implementation MyView
-
-- (id)initWithFrame:(NSRect)frameRect
-{
-	if ((self = [super initWithFrame:frameRect]) != nil) {
-		image = nil;
-	}
-	return self;
-}
-
-- (void)setImageTo:(NSImage*)theImage
-{
-	if(image == theImage)
-		return;
-	image = theImage;
-	[self setNeedsDisplay:YES];
-}
-
-- (NSImage*)image
-{
-	return image;
-}
-
-- (void)drawRect:(NSRect)rect
-{
-    if(image) {
-        [[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationNone];
-        [image drawAtPoint:NSMakePoint(0.0f, 0.0f) fromRect:NSZeroRect operation:NSCompositingOperationCopy fraction: self.opacity];
-    }
-	//printf("draw %d\n", image);
-}
-
 @end
