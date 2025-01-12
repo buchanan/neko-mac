@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5B5D87692CF3040800D053D4 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D87682CF3040800D053D4 /* Main.swift */; };
+		5B9BE4322D2A3ABD00575EAB /* EnterableSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9BE4312D2A3ABD00575EAB /* EnterableSlider.swift */; };
+		5B9BE4342D2A3AF200575EAB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9BE4332D2A3AF200575EAB /* SettingsView.swift */; };
+		5B9BE4362D2A3CE600575EAB /* Binding+Conversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9BE4352D2A3CE600575EAB /* Binding+Conversions.swift */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A700278D0CA641680057F7E4 /* MyPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = A700278C0CA641680057F7E4 /* MyPanel.m */; };
 		A70027B30CA6447E0057F7E4 /* MyView.m in Sources */ = {isa = PBXBuildFile; fileRef = A70027B20CA6447E0057F7E4 /* MyView.m */; };
@@ -56,6 +59,9 @@
 		5B1AF3772CF9F8E70053019F /* Signing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Signing.xcconfig; sourceTree = "<group>"; };
 		5B5D87672CF3040800D053D4 /* Neko-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Neko-Bridging-Header.h"; sourceTree = "<group>"; };
 		5B5D87682CF3040800D053D4 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		5B9BE4312D2A3ABD00575EAB /* EnterableSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterableSlider.swift; sourceTree = "<group>"; };
+		5B9BE4332D2A3AF200575EAB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		5B9BE4352D2A3CE600575EAB /* Binding+Conversions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Conversions.swift"; sourceTree = "<group>"; };
 		5BDB73F62CFC4620004512C8 /* CatStates.def */ = {isa = PBXFileReference; lastKnownFileType = text; path = CatStates.def; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Neko.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Neko.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A700278B0CA641680057F7E4 /* MyPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPanel.h; sourceTree = "<group>"; };
@@ -119,6 +125,9 @@
 				A70027B10CA6447E0057F7E4 /* MyView.h */,
 				A70027B20CA6447E0057F7E4 /* MyView.m */,
 				5BDB73F62CFC4620004512C8 /* CatStates.def */,
+				5B9BE4312D2A3ABD00575EAB /* EnterableSlider.swift */,
+				5B9BE4352D2A3CE600575EAB /* Binding+Conversions.swift */,
+				5B9BE4332D2A3AF200575EAB /* SettingsView.swift */,
 			);
 			name = Classes;
 			path = src;
@@ -331,9 +340,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B9BE4342D2A3AF200575EAB /* SettingsView.swift in Sources */,
 				A700278D0CA641680057F7E4 /* MyPanel.m in Sources */,
+				5B9BE4322D2A3ABD00575EAB /* EnterableSlider.swift in Sources */,
 				5B5D87692CF3040800D053D4 /* Main.swift in Sources */,
 				A70027B30CA6447E0057F7E4 /* MyView.m in Sources */,
+				5B9BE4362D2A3CE600575EAB /* Binding+Conversions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

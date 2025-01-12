@@ -6,9 +6,13 @@ NSString * const kCenterTransparency = @"centerTransparency";
 @implementation CatSettings
 +(instancetype)loadSettings {
 	CatSettings *res = [CatSettings new];
-	res.transparencyRadius = (int) [NSUserDefaults.standardUserDefaults integerForKey:kTransparencyRadius];
-	res.centerTransparency = (int) [NSUserDefaults.standardUserDefaults integerForKey:kCenterTransparency];
+	[res loadSettings];
 	return res;
+}
+
+-(void)loadSettings {
+	self.transparencyRadius = (int) [NSUserDefaults.standardUserDefaults integerForKey:kTransparencyRadius];
+	self.centerTransparency = (int) [NSUserDefaults.standardUserDefaults integerForKey:kCenterTransparency];
 }
 
 -(void) save {

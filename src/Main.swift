@@ -19,6 +19,10 @@ struct Application {
         NSApplication.shared.delegate = delegate
         NSApplication.shared.run()
     }
+    
+    static let debugSettingsUI: Bool = {
+        String(cString: getenv("NEKO_DEBUG_SETTINGS_UI")).isTrue
+    }()
 }
 
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
@@ -37,7 +41,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func applicationWillBecomeActive(_ notification: Notification) {
-        if !running {
+        if !running && !Application.debugSettingsUI {
             running = true
             return
         } else if settingsWindow != nil {
@@ -53,7 +57,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             }
         ))
         window.styleMask.insert(.closable)
-        window.level = .statusBar
         window.delegate = self
         window.isReleasedWhenClosed = false
         window.center()
@@ -72,85 +75,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 }
 
+fileprivate extension String {
+    var isTrue: Bool {
+        trimmingCharacters(in: .whitespacesAndNewlines)
+            .lowercased() == "true"
+    }
+}
+
 //struct Settings {
 //    let transparencyRadius: Int
 //    let centerTransparency: Int
 //}
-
-struct SettingsView: View {
-    @State
-    private var transparencyRadius: Double
-    
-    @State
-    private var centerTransparency: Double
-    
-    @Environment(\.dismiss)
-    private var dismiss
-    
-    private var onConfirm: (CatSettings) -> Void
-    
-    init(
-        settings: CatSettings,
-        onConfirm: @escaping (CatSettings) -> Void
-    ) {
-        self.transparencyRadius = Double(settings.transparencyRadius)
-        self.centerTransparency = Double(settings.centerTransparency)
-        self.onConfirm = onConfirm
-    }
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text("Transparency Radius")
-            EnterableSlider(
-                value: $transparencyRadius,
-                range: 0...400)
-            Text("Center Transparency")
-            EnterableSlider(
-                value: $centerTransparency,
-                range: 0...100)
-            Spacer(minLength: 24)
-            HStack {
-                Spacer()
-                Button("Cancel") {
-                    dismiss()
-                }.keyboardShortcut(.cancelAction)
-                Button("OK") {
-                    let settings = CatSettings()
-                    settings.transparencyRadius = Int32(transparencyRadius)
-                    settings.centerTransparency = Int32(centerTransparency)
-                    onConfirm(settings)
-                    dismiss()
-                }.keyboardShortcut(.defaultAction)
-            }
-        }.padding(20).frame(minWidth: 400)
-    }
-}
-
-struct EnterableSlider: View {
-    let value: Binding<Double>
-    
-    let range: ClosedRange<Double>
-    
-    let formatter: NumberFormatter
-    
-    init(value: Binding<Double>, range: ClosedRange<Double>) {
-        self.value = value
-        self.range = range
-        formatter = NumberFormatter()
-        formatter.roundingMode = .floor
-        formatter.maximumFractionDigits = 0
-        formatter.minimum = (range.lowerBound) as NSNumber
-        formatter.maximum = (range.upperBound) as NSNumber
-    }
-    
-    var body: some View {
-        HStack {
-            Slider(value: value, in: range)
-            TextField(
-                "number",
-                value: value,
-                formatter: formatter
-            ).frame(width: 80)
-        }
-    }
-}

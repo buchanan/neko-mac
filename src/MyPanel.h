@@ -10,6 +10,7 @@ extern NSString * const kCenterTransparency;
 @property (nonatomic) int transparencyRadius;
 @property (nonatomic) int centerTransparency;
 -(void) save;
+-(void) loadSettings;
 @end
 
 @interface MyPanel : NSWindow
