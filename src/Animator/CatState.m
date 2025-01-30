@@ -19,7 +19,7 @@ static NSDictionary<NSString *, NSString *> *kCatStateReuseMap = @{
                          kind:(CatStateKind)kind
 {
     if (self = [super init]) {
-        _images = [images retain];
+        _images = images;
         _kind = kind;
     }
     return self;

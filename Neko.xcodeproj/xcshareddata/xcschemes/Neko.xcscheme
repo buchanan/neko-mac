@@ -54,7 +54,7 @@
          <EnvironmentVariable
             key = "NEKO_DEBUG_SETTINGS_UI"
             value = "true"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </EnvironmentVariable>
       </EnvironmentVariables>
    </LaunchAction>
