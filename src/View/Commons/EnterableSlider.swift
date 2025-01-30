@@ -14,11 +14,16 @@ struct EnterableSlider: View {
     
     let range: ClosedRange<Double>
     
+    let step: Double?
+    
     let formatter: NumberFormatter
     
-    init(value: Binding<Double>, range: ClosedRange<Double>) {
+    init(
+        value: Binding<Double>, range: ClosedRange<Double>, step: Double? = nil
+    ) {
         self.value = value
         self.range = range
+        self.step = step
         formatter = NumberFormatter()
         formatter.roundingMode = .floor
         formatter.maximumFractionDigits = 0
@@ -28,7 +33,11 @@ struct EnterableSlider: View {
     
     var body: some View {
         HStack {
-            Slider(value: value, in: range)
+            if let step {
+                Slider(value: value, in: range, step: step)
+            } else {
+                Slider(value: value, in: range)
+            }
             TextField(
                 "number",
                 value: value,

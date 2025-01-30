@@ -7,6 +7,7 @@
 
 #import "CatSettings.h"
 
+NSString * const kNumCats = @"numCats";
 NSString * const kTransparencyRadius = @"transparencyRadius";
 NSString * const kCenterTransparency = @"centerTransparency";
 
@@ -18,11 +19,14 @@ NSString * const kCenterTransparency = @"centerTransparency";
 }
 
 -(void)loadSettings {
+    self.numCats = (int) [NSUserDefaults.standardUserDefaults integerForKey:kNumCats];
     self.transparencyRadius = (int) [NSUserDefaults.standardUserDefaults integerForKey:kTransparencyRadius];
     self.centerTransparency = (int) [NSUserDefaults.standardUserDefaults integerForKey:kCenterTransparency];
 }
 
 -(void) save {
+    [NSUserDefaults.standardUserDefaults setInteger:self.numCats
+                                             forKey:kNumCats];
     [NSUserDefaults.standardUserDefaults setInteger:self.transparencyRadius
                                              forKey:kTransparencyRadius];
     [NSUserDefaults.standardUserDefaults setInteger:self.centerTransparency

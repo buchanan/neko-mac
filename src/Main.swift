@@ -8,12 +8,18 @@
 import Foundation
 import SwiftUI
 
+public let kFirstLaunchVersionKey = "first_launch_version"
+
+public let kVersionInt = 1
+
 @main
 struct Application {
     static func main() {
         UserDefaults.standard.register(defaults: [
+            kNumCats: 2,
             kTransparencyRadius: 200,
             kCenterTransparency: 80,
+            kFirstLaunchVersionKey: 0,
         ])
         let delegate = AppDelegate()
         NSApplication.shared.delegate = delegate
@@ -21,53 +27,97 @@ struct Application {
     }
     
     static let debugSettingsUI: Bool = {
-        String(cString: getenv("NEKO_DEBUG_SETTINGS_UI")).isTrue
+        let v = getenv("NEKO_DEBUG_SETTINGS_UI")
+        return v.map { String(cString: $0) }.isTrue
     }()
 }
 
-class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
+@MainActor
+private class CatHouse {
+    public let settings: CatSettings
+    
+    private var panels: [CatPanel] = []
+    
+    init(settings: CatSettings) {
+        self.settings = settings
+        let numCats = Int(settings.numCats)
+        if numCats <= 0 { return; }
+        let offsets: [(CGFloat, CGFloat)] = numCats == 1 ?
+            [(0, 0)] : generateCirclePoints(
+                radius: 32,
+                startingAngle: CGFloat.pi / 3,
+                numberOfPoints: numCats)
+        panels = offsets.map { offset in
+            return CatPanel(
+                contentRect: NSRect(x: 0, y: 0, width: 32, height: 32),
+                styleMask: .borderless,
+                backing: .buffered,
+                defer: false,
+                offsetX: offset.0,
+                offsetY: offset.1)
+        }
+    }
+    
+    consuming func close() {
+        for panel in panels {
+            panel.close()
+        }
+    }
+}
+
+@MainActor
+private class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private var settingsWindow: NSWindow?
     
-    private var floatingWindow: FloatPanel!
-    
-    private var running = false
+    private var house: CatHouse!
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        floatingWindow = FloatPanel(
-            contentRect: NSRect(x: 0, y: 0, width: 32, height: 32),
-            styleMask: .borderless,
-            backing: .buffered,
-            defer: false)
+        let settings = CatSettings()
+        settings.load()
+        house = CatHouse(settings: settings)
+        if Application.debugSettingsUI {
+            UserDefaults.standard.set(
+                0, forKey: kFirstLaunchVersionKey)
+            showSettings()
+        } else if UserDefaults.standard.integer(
+            forKey: kFirstLaunchVersionKey
+        ) < kVersionInt {
+            UserDefaults.standard.set(
+                kVersionInt, forKey: kFirstLaunchVersionKey)
+            showSettings()
+        }
     }
     
     func applicationWillBecomeActive(_ notification: Notification) {
-        if !running && !Application.debugSettingsUI {
-            running = true
-            return
-        } else if settingsWindow != nil {
+        if settingsWindow != nil {
             return
         }
-        running = true
+        showSettings()
+    }
+    
+    private func showSettings() {
         let window = NSWindow()
         window.contentView = NSHostingView(rootView: SettingsView(
-            settings: floatingWindow.settings,
-            onConfirm: { [weak self] in
-                $0.save()
-                self?.floatingWindow.settings = $0
-            }
-        ))
+            settings: house.settings
+        ) { [weak self] in
+                guard let self else { return }
+                house.close()
+                house = CatHouse(settings: house.settings)
+            })
+        window.title = "🐱 Settings"
         window.styleMask.insert(.closable)
         window.delegate = self
         window.isReleasedWhenClosed = false
         window.center()
-        window.orderFront(nil)
+        window.makeKeyAndOrderFront(self)
+        window.orderFrontRegardless()
         settingsWindow = window
     }
     
     func applicationShouldHandleReopen(
         _ sender: NSApplication, hasVisibleWindows: Bool
     ) -> Bool {
-        return settingsWindow == nil
+        true
     }
     
     func windowWillClose(_ notification: Notification) {
@@ -75,14 +125,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 }
 
-fileprivate extension String {
+fileprivate extension String? {
     var isTrue: Bool {
-        trimmingCharacters(in: .whitespacesAndNewlines)
+        self?.trimmingCharacters(in: .whitespacesAndNewlines)
             .lowercased() == "true"
     }
 }
 
-//struct Settings {
-//    let transparencyRadius: Int
-//    let centerTransparency: Int
-//}
+fileprivate func generateCirclePoints(
+    radius: CGFloat,
+    startingAngle: CGFloat,
+    numberOfPoints: Int
+) -> [(CGFloat, CGFloat)] {
+    let angleIncrement = (2 * CGFloat.pi) / CGFloat(numberOfPoints)
+    return (0..<numberOfPoints).map { i in
+        let angle = startingAngle - CGFloat(i) * angleIncrement
+        let x = radius * cos(angle)
+        let y = radius * sin(angle)
+        return (x, y)
+    }
+}
