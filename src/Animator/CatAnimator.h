@@ -28,8 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(CatFrame* _Nonnull)tickWithX:(float)x
                              Y:(float)y
-                        mouseX:(float)mouseX
-                        mouseY:(float)mouseY;
+                        homeX:(float)mouseX
+                        homeY:(float)mouseY;
 @end
 
 NS_ASSUME_NONNULL_END

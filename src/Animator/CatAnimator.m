@@ -109,8 +109,8 @@
 
 - (CatFrame*)tickWithX:(float)x
                      Y:(float)y
-                mouseX:(float)mouseX
-                mouseY:(float)mouseY
+                homeX:(float)mouseX
+                homeY:(float)mouseY
 {
     [self calcDxDyForX:x Y:y mouseX:mouseX mouseY:mouseY];
     BOOL isNekoMoveStart = [self isNekoMoveStart];
