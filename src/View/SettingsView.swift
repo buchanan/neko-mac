@@ -43,6 +43,16 @@ struct SettingsView: View {
                 value: .convert($settings.centerTransparency),
                 range: 0...100)
             Spacer(minLength: itemsSpacing)
+            Text("Cursor Offset X")
+            EnterableSlider(
+                value: .convert($settings.cursorOffsetX),
+                range: -100...100)
+            Spacer(minLength: itemsSpacing)
+            Text("Cursor Offset Y")
+            EnterableSlider(
+                value: .convert($settings.cursorOffsetY),
+                range: -100...100)
+            Spacer(minLength: itemsSpacing)
             Toggle(isOn: $settings.autoStart) {
                 Text("Start on login")
             }

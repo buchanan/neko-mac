@@ -88,6 +88,22 @@ class SettingsViewModel: ObservableObject {
         }
     }
     
+    var cursorOffsetX: Int32 {
+        get { catSettings.cursorOffsetX }
+        set {
+            objectWillChange.send()
+            catSettings.cursorOffsetX = newValue
+        }
+    }
+    
+    var cursorOffsetY: Int32 {
+        get { catSettings.cursorOffsetY }
+        set {
+            objectWillChange.send()
+            catSettings.cursorOffsetY = newValue
+        }
+    }
+    
     func finish() -> CatSettings {
         return self.catSettings
     }

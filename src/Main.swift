@@ -19,6 +19,8 @@ struct Application {
             kNumCats: 2,
             kTransparencyRadius: 200,
             kCenterTransparency: 80,
+            kCursorOffsetX: 0,
+            kCursorOffsetY: 0,
             kFirstLaunchVersionKey: 0,
         ])
         let delegate = AppDelegate()
@@ -53,8 +55,8 @@ private class CatHouse {
                 styleMask: .borderless,
                 backing: .buffered,
                 defer: false,
-                offsetX: offset.0,
-                offsetY: offset.1)
+                offsetX: offset.0 + CGFloat(settings.cursorOffsetX),
+                offsetY: offset.1 + CGFloat(settings.cursorOffsetY))
         }
     }
     
